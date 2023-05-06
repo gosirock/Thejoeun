@@ -35,6 +35,7 @@ public class Dao {
 	FileInputStream file;
 	
 	
+	
 	public Dao() {
 		// TODO Auto-generated constructor stub
 	}
@@ -180,8 +181,6 @@ public class Dao {
 		
 		return dtoList;
 	}
-	
-	
 	
 	
 	
