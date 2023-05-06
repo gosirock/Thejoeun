@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.javalec.dto.Dto;
+import com.javalec.dto.DtoBasket;
 import com.javalec.util.ShareVar;
 
 public class DaoBasket {
@@ -24,12 +25,12 @@ public class DaoBasket {
 	}
 
 
-	public ArrayList<Dto> selectLinst(){
-		ArrayList<Dto> dtoList = new ArrayList<Dto>();
+	public ArrayList<DtoBasket> selectLinst(){
+		ArrayList<DtoBasket> dtoList = new ArrayList<DtoBasket>();
 		
 		String whereDefault = "select p.pid, p.pbrand, p.pname, p.pprice, b.qty";
-		String whereDefault1 = "from product p, user u, basket b";
-		String whereDefault2 = "where u.userid = b.user_userid and p.pid = b.product_pid and u.userid = " + ShareVar.loginUserId;
+		String whereDefault1 = " from product p, user u, basket b";
+		String whereDefault2 = " where u.userid = b.user_userid and p.pid = b.product_pid and u.userid = " + "'"+ ShareVar.loginUserId+"'";
 		
 		
 		try {
@@ -46,8 +47,8 @@ public class DaoBasket {
 				int pprice = rs.getInt(4);
 				int bqty = rs.getInt(5);
 				
-				Dto dto = new Dto(pid, pbrand, pname, pprice, bqty);
-				dtoList.add(dto);
+				DtoBasket dtoBasket = new DtoBasket(pid, pbrand, pname, pprice, bqty);
+				dtoList.add(dtoBasket);
 			}
 			conn_mysql.close();
 			

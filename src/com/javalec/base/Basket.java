@@ -13,7 +13,9 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.dao.Dao;
 import com.javalec.dao.DaoBasket;
+import com.javalec.dao.DaoProduct;
 import com.javalec.dto.Dto;
+import com.javalec.dto.DtoBasket;
 import com.javalec.util.ShareVar;
 
 import javax.swing.JLabel;
@@ -34,7 +36,6 @@ public class Basket extends JFrame {
 	
 	private JPanel contentPane;
 	private JTable innerTable;
-
 	/**
 	 * Launch the application.
 	 */
@@ -75,10 +76,7 @@ public class Basket extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 50, 592, 223);
 		contentPane.add(scrollPane);
-		
-		innerTable = new JTable();
-		innerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(innerTable);
+		scrollPane.setViewportView(getInnerTable());
 		
 		JLabel lblNewLabel = new JLabel("ID :");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 15));
@@ -109,8 +107,24 @@ public class Basket extends JFrame {
 		btnNewButton_2.setFont(new Font("굴림", Font.PLAIN, 15));
 		btnNewButton_2.setBounds(507, 497, 97, 23);
 		contentPane.add(btnNewButton_2);
+		
+		JLabel lblsum = new JLabel(Integer.toString(sumAction()));
+		lblsum.setBounds(147, 501, 108, 16);
+		contentPane.add(lblsum);
 	}
 	
+	
+	
+	
+	
+	private JTable getInnerTable() {
+		if (innerTable == null) {
+			innerTable = new JTable();
+			innerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			innerTable.setModel(outerTable);
+		}
+		return innerTable;
+	}
 	
 	
 	private void tableInit() {
@@ -156,17 +170,20 @@ public class Basket extends JFrame {
 		width = 100;
 		col.setPreferredWidth(width);
 	}
-
-	// 테이블 정보 넣기
+	
+	
 	private void searchAction() {
 		DaoBasket daoBasket = new DaoBasket();
-		ArrayList<Dto> dtoList = daoBasket.selectLinst();
+		ArrayList<DtoBasket> dtoList = daoBasket.selectLinst();
 		int listCount = dtoList.size();
 		
 		for(int i = 0; i< listCount; i++) {
 			
-			String price = Integer.toString(dtoList.get(i).getPprice());
-			String stock = Integer.toString(dtoList.get(i).getPstock());
+			String price = Integer.toString(dtoList.get(i).getPpricne());
+			String stock = Integer.toString(dtoList.get(i).getBqty());
+			int a = dtoList.get(i).getPpricne();
+			int b = dtoList.get(i).getBqty();
+			
 			
 			String[] qTxt = {dtoList.get(i).getPid(), dtoList.get(i).getPbrand(), dtoList.get(i).getPname(), price,
 					stock};
@@ -174,4 +191,20 @@ public class Basket extends JFrame {
 			}
 			
 		}
+	
+	private int sumAction() {
+		DaoBasket daoBasket = new DaoBasket();
+		ArrayList<DtoBasket> dtoList = daoBasket.selectLinst();
+		int listCount = dtoList.size();
+		int sum =0;
+		for(int i = 0; i< listCount; i++) {
+			String price = Integer.toString(dtoList.get(i).getPpricne());
+			String stock = Integer.toString(dtoList.get(i).getBqty());
+			int a = dtoList.get(i).getPpricne();
+			int b = dtoList.get(i).getBqty();
+			sum += a * b;
+
+	}
+		return sum;
+}
 }
