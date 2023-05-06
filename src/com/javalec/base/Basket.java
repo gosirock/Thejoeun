@@ -42,7 +42,7 @@ public class Basket extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Buy frame = new Buy();
+					Basket frame = new Basket();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
