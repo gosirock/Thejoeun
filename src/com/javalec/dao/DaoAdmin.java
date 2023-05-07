@@ -50,6 +50,17 @@ public class DaoAdmin {
 			super();
 			this.pid = pid;
 		}
+		
+
+
+		public String getPid() {
+			return pid;
+		}
+
+
+		public void setPid(String pid) {
+			this.pid = pid;
+		}
 
 
 		public DaoAdmin(String pid, String pbrand, String pname, int pstock, int pprice, FileInputStream file) {  //insertAction 해주기 생성자
@@ -219,37 +230,36 @@ public class DaoAdmin {
 		
 		
 		
-//		public boolean updateAction() {
-//			PreparedStatement ps = null ;
-//			try {  // java가 db에 접근했다.
-//				Class.forName("com.mysql.cj.jdbc.Driver");
-//				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-//				Statement stmt_mysql = conn_mysql.createStatement();
-//
-//				String query = "update product set pid = ?, pbrand = ?, pname = ?, pstock = ?, pprice = ?";
-//				String query1 = " where pid = ?";
-//				
-//				ps = conn_mysql.prepareStatement(query + query1);
-//				ps.setString(1, pid.trim());   // 물음표 1번
-//				ps.setString(2, pbrand.trim());   // 물음표 2번
-//				ps.setString(3, pname.trim());
-//				ps.setInt(4, pstock);
-//				ps.setInt(5, pprice);
-//				ps.setString(6, pid);   // 물음표 6번
-//				
-//				
-//				
-//				ps.executeUpdate();
-//				conn_mysql.close();
-//				
-//				
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//				return false;
-//			}
-//			
-//			return true;
-//		}
+		public boolean updateAction() {
+			PreparedStatement ps = null ;
+			try {  // java가 db에 접근했다.
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+
+				String query = "update product set  pbrand = ?, pname = ?, pstock = ?, pprice = ?";
+				String query1 = " where pid = ?";
+				
+				ps = conn_mysql.prepareStatement(query + query1);
+				ps.setString(1, pbrand.trim());   // 물음표 2번
+				ps.setString(2, pname.trim());
+				ps.setInt(3, pstock);
+				ps.setInt(4, pprice);
+				ps.setString(5, pid);   // 물음표 6번
+				
+				
+				
+				ps.executeUpdate();
+				conn_mysql.close();
+				
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+			
+			return true;
+		}
 		
 		
 		
