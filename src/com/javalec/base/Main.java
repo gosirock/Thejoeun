@@ -109,6 +109,7 @@ public class Main extends JFrame {
 		
 		if(result == true) {
 			ShareVar.loginUserId = uid;
+			JOptionPane.showMessageDialog(this, uid+"님 환영합니다");
 			Buy buy = new Buy();
 			buy.setVisible(true);
 			dispose();
