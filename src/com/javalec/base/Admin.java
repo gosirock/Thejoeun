@@ -18,6 +18,8 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.dao.DaoAdmin;
 import com.javalec.dao.DaoAdminUpdate;
+import com.javalec.dao.DaoConditionList;
+import com.javalec.dto.Dto;
 import com.javalec.dto.DtoAdmin;
 import com.javalec.util.ShareVar;
 
@@ -37,6 +39,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Admin extends JFrame {
 
@@ -65,6 +69,9 @@ public class Admin extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblImage;
 	private JButton btnFilePath;
+	private JButton btnQuery;
+	private JComboBox cbSelection;
+	private JTextField tfSelection;
 	
 	
 	/**
@@ -170,6 +177,9 @@ public class Admin extends JFrame {
 		
 		contentPane.add(getLblImage());
 		contentPane.add(getBtnFilePath());
+		contentPane.add(getBtnQuery());
+		contentPane.add(getCbSelection());
+		contentPane.add(getTfSelection());
 	}
 	private JRadioButton getRbInsert() {
 		if (rbInsert == null) {
@@ -346,7 +356,7 @@ private void tableClick() {  //
 		if(rbUpdate.isSelected()) {
 			tfName.setEditable(true);
 			tfBrand.setEditable(true);
-			tfID.setEditable(true);
+			tfID.setEditable(false);
 			tfStock.setEditable(true);
 			tfPrice.setEditable(true);
 			tfFilePath.setEditable(true);
@@ -829,24 +839,75 @@ private void updateAction() {
 		
 		
 	}
+	private JButton getBtnQuery() {
+		if (btnQuery == null) {
+			btnQuery = new JButton("검색");
+			btnQuery.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					conditionQuery();
+				}
+			});
+			btnQuery.setBounds(534, 21, 70, 23);
+		}
+		return btnQuery;
+	}
+	private JComboBox getCbSelection() {
+		if (cbSelection == null) {
+			cbSelection = new JComboBox();
+			cbSelection.setModel(new DefaultComboBoxModel(new String[] {"브랜드명", "제품명"}));
+			cbSelection.setBounds(268, 21, 89, 23);
+		}
+		return cbSelection;
+	}
+	private JTextField getTfSelection() {
+		if (tfSelection == null) {
+			tfSelection = new JTextField();
+			tfSelection.setBounds(406, 22, 116, 21);
+			tfSelection.setColumns(10);
+		}
+		return tfSelection;
+	}
+	
+	
+	
+	
+	
+	
+	
+	private void conditionQuery() {
+		int i = cbSelection.getSelectedIndex();
+		String conditionQueryColumn = "";
+		switch(i) {
+		case 0:
+			conditionQueryColumn = "pbrand";
+			break;
+		case 1:
+			conditionQueryColumn = "pname";
+			break;
+		default:
+			break;
+		
+	}
+		tableInit();
+		conditionQueryAction(conditionQueryColumn);
+		clearColumn();
+	}
+	
+	private void conditionQueryAction(String conditionQueryColumn) {
+		
+		DaoConditionList dao = new DaoConditionList(conditionQueryColumn, tfSelection.getText()); 
+		ArrayList<Dto> dtoList = dao.conditionList();
+		int listCount = dtoList.size();
+		
+		for(int i = 0; i < listCount; i++) {
+			String price = Integer.toString(dtoList.get(i).getPprice());
+			String stock = Integer.toString(dtoList.get(i).getPstock());
+			
+			String[] qTxt = {dtoList.get(i).getPid(), dtoList.get(i).getPbrand(), dtoList.get(i).getPname(), price,
+					stock};
+			outerTable.addRow(qTxt);
+		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 }
 
