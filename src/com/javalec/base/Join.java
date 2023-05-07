@@ -166,7 +166,6 @@ public class Join extends JFrame {
 		
 		Dao dao = new Dao(uid, upassword, uname, uphone, uemail, uaddress);
 		boolean result = dao.joinAction();
-		
 		if(result) {
 			JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다!");
 		}else {
@@ -182,23 +181,24 @@ public class Join extends JFrame {
 	//중복체크
 	private void dupCheck() {
 		String uid = tfId.getText();
-		Dao dao = new Dao(uid);
-		
-		boolean result = dao.dupCheck();
-		
-		if(result) {
-			JOptionPane.showMessageDialog(this, "중복된 아이디 입니다.");
-		}else {
-			JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.");
-			tfName.setEditable(true);
-			tfPw.setEditable(true);
-			tfEmail.setEditable(true);
-			tfPhone.setEditable(true);
-			tfAddress.setEditable(true);
-			btnJoin.setEnabled(true);
+			Dao dao = new Dao(uid);
+			
+			boolean result = dao.dupCheck();
+			
+			if(result) {
+				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다.");
+			}else {
+				JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.");
+				tfName.setEditable(true);
+				tfPw.setEditable(true);
+				tfEmail.setEditable(true);
+				tfPhone.setEditable(true);
+				tfAddress.setEditable(true);
+				btnJoin.setEnabled(true);
+			}	
 		}
 		
 		
-	}
+		
 
 }
