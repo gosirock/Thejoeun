@@ -235,7 +235,6 @@ public class DaoAdmin {
 				String query = "update shoes.product set  pid = ?,pbrand = ?, pname = ?, pstock = ?, pprice = ?";
 				String query1 = " where pid = ?";
 				ps = conn_mysql.prepareStatement(query + query1);
-				System.out.println("@@@@@@@@@@@");
 				ps.setString(1, pid.trim());   // 물음표 2번
 				ps.setString(2, pbrand.trim());   // 물음표 2번
 				ps.setString(3, pname.trim());
