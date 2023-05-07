@@ -103,21 +103,30 @@ public class Main extends JFrame {
 		String uid = tfId.getText();
 		String upassword = tfPw.getText();
 		
-		Dao dao = new Dao(uid, upassword);
-		
-		boolean result = dao.logincheck();
-		
-		if(result == true) {
-			ShareVar.loginUserId = uid;
-			JOptionPane.showMessageDialog(this, uid+"님 환영합니다");
-			Buy buy = new Buy();
-			buy.setVisible(true);
+		if(uid.equals("admin") && upassword.equals("1234")) {
+			Admin admin = new Admin();
+			admin.setVisible(true);
 			dispose();
-			
 		}else {
-			JOptionPane.showMessageDialog(this, "ID, PassWord를 확인하세요");
+
+			Dao dao = new Dao(uid, upassword);
+			
+			boolean result = dao.logincheck();
+			
+			if(result == true) {
+				ShareVar.loginUserId = uid;
+				JOptionPane.showMessageDialog(this, uid+"님 환영합니다");
+				Buy buy = new Buy();
+				buy.setVisible(true);
+				dispose();
+				
+			}else {
+				JOptionPane.showMessageDialog(this, "ID, PassWord를 확인하세요");
+			}
 		}
-	}
 	
+		}
+		
+			
 }
 
