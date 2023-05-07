@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.javalec.dao.DaoAdmin;
+import com.javalec.dao.DaoAdminUpdate;
 import com.javalec.dto.DtoAdmin;
 import com.javalec.util.ShareVar;
 
@@ -779,7 +780,7 @@ private void updateAction() {
 	int price = Integer.parseInt(tfPrice.getText());
 	String filepath = tfFilePath.getText();
 	
-	DaoAdmin dao = new DaoAdmin(id);
+	DaoAdminUpdate dao = new DaoAdminUpdate(id, brand, name, stock, price, filepath);
 	boolean result = dao.updateAction();
 	
 	if (result) {
@@ -806,6 +807,8 @@ private void updateAction() {
 
 
 	
+
+
 	private void filePath() {   // file loading method
 		
 		JFileChooser chooser = new JFileChooser();
