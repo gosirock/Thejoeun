@@ -359,6 +359,7 @@ private void clearColumn() {
 		
 		if(result) {
 			JOptionPane.showMessageDialog(this, "해당상품을 장바구니에 담았습니다");
+			tfqty.setText(null);
 		}else {
 			JOptionPane.showMessageDialog(this, "장바구니를 비워주세요");
 		}
