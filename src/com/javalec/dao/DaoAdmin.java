@@ -130,7 +130,7 @@ public class DaoAdmin {
 		
 		public ArrayList<DtoAdmin> selectList(){
 			ArrayList<DtoAdmin> dtoList = new ArrayList<DtoAdmin>(); 
-				String whereDefault = "select pid, pbrand, pname, pstock, pprice from shoesshop.product";    // select from 은 이렇게하기
+				String whereDefault = "select pid, pbrand, pname, pstock, pprice from product";    // select from 은 이렇게하기
 				try {  // java가 db에 접근했다.
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -181,7 +181,7 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "insert into shoesshop.product (pid,pbrand,pname,pstock,pprice)";
+				String query = "insert into product (pid,pbrand,pname,pstock,pprice)";
 				String query1 = " values (?,?,?,?,?)";
 				
 				ps = conn_mysql.prepareStatement(query + query1);
@@ -219,37 +219,37 @@ public class DaoAdmin {
 		
 		
 		
-		public boolean updateAction() {
-			PreparedStatement ps = null ;
-			try {  // java가 db에 접근했다.
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-				Statement stmt_mysql = conn_mysql.createStatement();
-
-				String query = "update shoesshop.product set pid = ?, pbrand = ?, pname = ?, pstock = ?, pprice = ?";
-				String query1 = " where pid = ?";
-				
-				ps = conn_mysql.prepareStatement(query + query1);
-				ps.setString(1, pid.trim());   // 물음표 1번
-				ps.setString(2, pbrand.trim());   // 물음표 2번
-				ps.setString(3, pname.trim());
-				ps.setInt(4, pstock);
-				ps.setInt(5, pprice);
-				ps.setString(6, pid);   // 물음표 6번
-				
-				
-				
-				ps.executeUpdate();
-				conn_mysql.close();
-				
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-			
-			return true;
-		}
+//		public boolean updateAction() {
+//			PreparedStatement ps = null ;
+//			try {  // java가 db에 접근했다.
+//				Class.forName("com.mysql.cj.jdbc.Driver");
+//				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//				Statement stmt_mysql = conn_mysql.createStatement();
+//
+//				String query = "update product set pid = ?, pbrand = ?, pname = ?, pstock = ?, pprice = ?";
+//				String query1 = " where pid = ?";
+//				
+//				ps = conn_mysql.prepareStatement(query + query1);
+//				ps.setString(1, pid.trim());   // 물음표 1번
+//				ps.setString(2, pbrand.trim());   // 물음표 2번
+//				ps.setString(3, pname.trim());
+//				ps.setInt(4, pstock);
+//				ps.setInt(5, pprice);
+//				ps.setString(6, pid);   // 물음표 6번
+//				
+//				
+//				
+//				ps.executeUpdate();
+//				conn_mysql.close();
+//				
+//				
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//				return false;
+//			}
+//			
+//			return true;
+//		}
 		
 		
 		
