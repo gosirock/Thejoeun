@@ -30,7 +30,7 @@ public class DaoAdmin {
 		int pstock;
 		int pprice;
 		String pimagename;
-		
+		String filepath;
 		
 		
 		String conname; // 검색에서 사용할 변수
@@ -63,7 +63,14 @@ public class DaoAdmin {
 			this.file = file;
 		}
 		
-		
+		public DaoAdmin(String pid, String pbrand, String pname, int pstock, int pprice, String filepath) {// updateAction 실행
+		    this.pid = pid;
+		    this.pbrand = pbrand;
+		    this.pname = pname;
+		    this.pstock = pstock;
+		    this.pprice = pprice;
+		    this.filepath = filepath;
+		}
 		
 		
 		
@@ -130,7 +137,7 @@ public class DaoAdmin {
 		
 		public ArrayList<DtoAdmin> selectList(){
 			ArrayList<DtoAdmin> dtoList = new ArrayList<DtoAdmin>(); 
-				String whereDefault = "select pid, pbrand, pname, pstock, pprice from shoesshop.product";    // select from 은 이렇게하기
+				String whereDefault = "select pid, pbrand, pname, pstock, pprice from shoes.product";    // select from 은 이렇게하기
 				try {  // java가 db에 접근했다.
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -181,7 +188,7 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "insert into shoesshop.product (pid,pbrand,pname,pstock,pprice)";
+				String query = "insert into shoes.product (pid,pbrand,pname,pstock,pprice)";
 				String query1 = " values (?,?,?,?,?)";
 				
 				ps = conn_mysql.prepareStatement(query + query1);
@@ -218,7 +225,6 @@ public class DaoAdmin {
 		
 		
 		
-		
 		public boolean updateAction() {
 			PreparedStatement ps = null ;
 			try {  // java가 db에 접근했다.
@@ -226,11 +232,11 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "update shoesshop.product set pid = ?, pbrand = ?, pname = ?, pstock = ?, pprice = ?";
+				String query = "update shoes.product set  pid = ?,pbrand = ?, pname = ?, pstock = ?, pprice = ?";
 				String query1 = " where pid = ?";
-				
 				ps = conn_mysql.prepareStatement(query + query1);
-				ps.setString(1, pid.trim());   // 물음표 1번
+				System.out.println("@@@@@@@@@@@");
+				ps.setString(1, pid.trim());   // 물음표 2번
 				ps.setString(2, pbrand.trim());   // 물음표 2번
 				ps.setString(3, pname.trim());
 				ps.setInt(4, pstock);
@@ -261,11 +267,7 @@ public class DaoAdmin {
 		
 		
 		
-		
-		
-		
-		
-		
+
 		public boolean deleteAction() {
 			PreparedStatement ps = null ;
 			try {  // java가 db에 접근했다.
@@ -273,7 +275,7 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "delete from shoesshop.product where pid = ?";
+				String query = "delete from shoes.product where pid = ?";
 				
 				ps = conn_mysql.prepareStatement(query);
 				ps.setString(1,pid);
@@ -291,5 +293,6 @@ public class DaoAdmin {
 			
 			return true;
 		}
+
 
 }

@@ -769,8 +769,6 @@ private void deleteAction() {
 
 
 
-
-
 private void updateAction() {
 	String id = tfID.getText();
 	String brand = tfBrand.getText();
@@ -779,7 +777,7 @@ private void updateAction() {
 	int price = Integer.parseInt(tfPrice.getText());
 	String filepath = tfFilePath.getText();
 	
-	DaoAdmin dao = new DaoAdmin(id);
+	DaoAdmin dao = new DaoAdmin(id,brand,name,stock,price,filepath);
 	boolean result = dao.updateAction();
 	
 	if (result) {
@@ -790,11 +788,6 @@ private void updateAction() {
 	
 }
 	
-	
-
-
-
-
 
 
 

@@ -27,6 +27,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Basket extends JFrame {
 
@@ -104,6 +106,11 @@ public class Basket extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("구매");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminopen();
+			}
+		});
 		btnNewButton_2.setFont(new Font("굴림", Font.PLAIN, 15));
 		btnNewButton_2.setBounds(507, 497, 97, 23);
 		contentPane.add(btnNewButton_2);
@@ -207,4 +214,14 @@ public class Basket extends JFrame {
 	}
 		return sum;
 }
+	private void adminopen() {
+		
+		Admin admin = new Admin();
+		admin.setVisible(true);
+		dispose();
+
+	}
+	
+	
+	
 }
