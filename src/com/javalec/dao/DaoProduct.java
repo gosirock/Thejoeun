@@ -89,6 +89,7 @@ public class DaoProduct {
 				byte[] buffer = new byte[1024];
 				while(input.read(buffer) > 0) {
 					output.write(buffer);
+					
 				}
 				dto = new Dto(wkpid, wkpbrand, wkpname, wkpprice, wkpimagename);
 			}

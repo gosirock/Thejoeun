@@ -168,7 +168,7 @@ public class Buy extends JFrame {
 	private JLabel getLblImage() {
 		if (lblImage == null) {
 			lblImage = new JLabel("");
-			lblImage.setBounds(12, 305, 190, 176);
+			lblImage.setBounds(12, 285, 213, 240);
 		}
 		return lblImage;
 	}
@@ -321,9 +321,14 @@ public class Buy extends JFrame {
 		
 		String imagefile = dto.getPimagename();
 		
+		ImageIcon imgicon = new ImageIcon(imagefile);
+		Image img = imgicon.getImage();
 		
-		lblImage.setIcon(new ImageIcon(imagefile));
+		Image updateImg = img.getScaledInstance(213, 240, Image.SCALE_SMOOTH);
+		lblImage.setIcon(new ImageIcon(updateImg));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
 		
 		File file = new File(imagefile);
 		file.delete();
