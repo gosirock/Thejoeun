@@ -18,6 +18,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Join extends JFrame {
 
@@ -30,6 +32,8 @@ public class Join extends JFrame {
 	private JTextField tfAddress;
 	private JButton btnCheck;
 	private JButton btnJoin;
+	private JComboBox cbEmail;
+	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -55,7 +59,7 @@ public class Join extends JFrame {
 		});
 		setTitle("회원가입");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 301, 477);
+		setBounds(100, 100, 355, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -118,7 +122,7 @@ public class Join extends JFrame {
 		tfEmail = new JTextField();
 		tfEmail.setEditable(false);
 		tfEmail.setColumns(10);
-		tfEmail.setBounds(94, 227, 179, 21);
+		tfEmail.setBounds(96, 227, 90, 21);
 		contentPane.add(tfEmail);
 		
 		tfAddress = new JTextField();
@@ -137,6 +141,29 @@ public class Join extends JFrame {
 		btnJoin.setEnabled(false);
 		btnJoin.setBounds(123, 401, 117, 29);
 		contentPane.add(btnJoin);
+		contentPane.add(getCbEmail());
+		contentPane.add(getLblNewLabel_2());
+	}
+	private JComboBox getCbEmail() {
+		if (cbEmail == null) {
+			cbEmail = new JComboBox();
+			cbEmail.setEnabled(false);
+			cbEmail.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					emailAction();
+				}
+			});
+			cbEmail.setModel(new DefaultComboBoxModel(new String[] {"naver.com", "daum.net", "gmail.com", "직접입력"}));
+			cbEmail.setBounds(213, 226, 136, 27);
+		}
+		return cbEmail;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("@");
+			lblNewLabel_2.setBounds(198, 230, 17, 16);
+		}
+		return lblNewLabel_2;
 	}
 	
 	private JButton getBtnCheck() {
@@ -162,43 +189,75 @@ public class Join extends JFrame {
 		String uname = tfName.getText();
 		String uphone = tfPhone.getText();
 		String uemail = tfEmail.getText();
+		String uemailcb = cbEmail.getSelectedItem().toString();
 		String uaddress = tfAddress.getText();
 		
-		Dao dao = new Dao(uid, upassword, uname, uphone, uemail, uaddress);
-		boolean result = dao.joinAction();
-		if(result) {
-			JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다!");
+		if(uid.isEmpty() || upassword.isEmpty() || uname.isEmpty() || uphone.isEmpty() || uemail.isEmpty() || uemailcb.isEmpty()
+				|| uaddress.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "회원정보를 입력해주세요");
 		}else {
-			JOptionPane.showMessageDialog(this, "정보를 확인하세요!");
+			Dao dao = new Dao(uid, upassword, uname, uphone, uemail+"@"+uemailcb, uaddress);
+			boolean result = dao.joinAction();
+			if(result) {
+				JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다!");
+			}else {
+				JOptionPane.showMessageDialog(this, "정보를 확인하세요!");
+			}
+			
+			Main main = new Main();
+			main.setVisible(true);
+			setVisible(false);	
 		}
 		
-		Main main = new Main();
-		main.setVisible(true);
-		setVisible(false);
+		
+		
 	}
 	
 	
 	//중복체크
 	private void dupCheck() {
 		String uid = tfId.getText();
+		if(uid.isEmpty()) {
+			JOptionPane.showMessageDialog(this,"아이디를 입력해주세요.");
+		}else {
 			Dao dao = new Dao(uid);
-			
 			boolean result = dao.dupCheck();
-			
-			if(result) {
-				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다.");
-			}else {
-				JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.");
-				tfName.setEditable(true);
-				tfPw.setEditable(true);
-				tfEmail.setEditable(true);
-				tfPhone.setEditable(true);
-				tfAddress.setEditable(true);
-				btnJoin.setEnabled(true);
-			}	
-		}
+				if(result) {
+					JOptionPane.showMessageDialog(this, "중복된 아이디 입니다.");
+				}else {
+					JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.");
+					tfName.setEditable(true);
+					tfPw.setEditable(true);
+					tfEmail.setEditable(true);
+					tfPhone.setEditable(true);
+					tfAddress.setEditable(true);
+					btnJoin.setEnabled(true);
+					cbEmail.setEnabled(true);
+				}	
+			}
+	}		
 		
+	
+	private void emailAction() {
+		int i = cbEmail.getSelectedIndex();
+		String emailselect = "";
+		switch(i) {
+		case 0:
+			cbEmail.setEditable(false);
+			break;
+		case 1:
+			cbEmail.setEditable(false);
+			break;
+		case 2:
+			cbEmail.setEditable(false);
+			break;
+		case 3:
+			cbEmail.setEditable(true);
+			break;
+		default:
+			break;
 		
-		
-
+	}
+	
+}
 }
