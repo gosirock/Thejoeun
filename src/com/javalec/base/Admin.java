@@ -685,7 +685,7 @@ private void insertAction() {
 	String name = tfName.getText();
 	int stock = Integer.parseInt(tfStock.getText());
 	int price = Integer.parseInt(tfPrice.getText());
-	
+	String imagename = tfFilePath.getText();
 	
 	// Image File
 	FileInputStream input = null;
@@ -698,7 +698,7 @@ private void insertAction() {
 	}
 	
 	
-	DaoAdmin dao = new DaoAdmin(id, brand, name, stock, price, input);
+	DaoAdmin dao = new DaoAdmin(id, brand, name, stock, price, imagename, input);
 	boolean result = dao.insertAction(); 
 	
 	if (result) {
