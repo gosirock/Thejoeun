@@ -1,6 +1,8 @@
 package com.javalec.dao;
 
 import java.io.File;
+
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -39,18 +41,23 @@ public class DaoAdmin {
 		// File
 		FileInputStream pimage;
 		
+		
 
 		
+
+
 		public DaoAdmin() {
 			// TODO Auto-generated constructor stub
 		}
 
+		
 
+		
+		
 		public DaoAdmin(String pid) {
 			super();
 			this.pid = pid;
 		}
-		
 
 
 		public String getPid() {
@@ -127,6 +134,7 @@ public class DaoAdmin {
 					while(input.read(buffer)>0) {
 						output.write(buffer);
 					}
+					
 					
 					
 					// 위에 6개를 한번에 넣기  -> Dto 에서 1개의 데이터 생성자를 만들어놓음
@@ -315,5 +323,10 @@ public class DaoAdmin {
 			
 			return true;
 		}
+		
+		
+		
+		
+		
 
 }

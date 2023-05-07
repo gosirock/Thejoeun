@@ -2,6 +2,7 @@ package com.javalec.base;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -277,6 +278,7 @@ public class Admin extends JFrame {
 	private JTextField getTfFilePath() {
 		if (tfFilePath == null) {
 			tfFilePath = new JTextField();
+			tfFilePath.setEditable(false);
 			tfFilePath.setColumns(10);
 			tfFilePath.setBounds(346, 450, 232, 21);
 		}
@@ -409,9 +411,18 @@ private void tableClick() {  //
 		lblImage.setIcon(new ImageIcon(filePath));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);  // label의 중앙에 파일 위치
 		
+		// 이미지 크기조절
+		//String filePath = dto.getPimagename();
+		ImageIcon imgicon =new ImageIcon(filePath);
+		Image img = imgicon.getImage();
+		
+		Image updateImg = img.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+		lblImage.setIcon(new ImageIcon(updateImg));
+		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
 		File file = new File(filePath);
 		file.delete();
-		
 		
 		
 	}
@@ -581,7 +592,6 @@ private void actionPartition() {
 		int i_chk = insertFieldCheck();
 		if (i_chk == 0) {
 			insertAction();
-			System.out.println("****");
 			tableInit();
 			searchAction();
 			clearColumn();
@@ -909,5 +919,9 @@ private void updateAction() {
 		}
 
 	}
+	
+	
+	
+	
 }
 
