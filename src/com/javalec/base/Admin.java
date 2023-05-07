@@ -101,7 +101,6 @@ public class Admin extends JFrame {
 				tableInit();  // 테이블초기화
 				searchAction();  // 데이터불러오기
 				screenPartition(); //  radiobtn 이 눌러진 상태로 textfield 화면표시해주기
-				
 			}
 		});
 		setTitle("관리자모드");
@@ -136,7 +135,7 @@ public class Admin extends JFrame {
 		lblNewLabel.setBounds(12, 10, 24, 15);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblUserId = new JLabel("");
+		JLabel lblUserId = new JLabel(ShareVar.loginUserId);
 		lblUserId.setFont(new Font("굴림", Font.PLAIN, 15));
 		lblUserId.setBounds(48, 10, 108, 15);
 		contentPane.add(lblUserId);
@@ -919,9 +918,5 @@ private void updateAction() {
 		}
 
 	}
-	
-	
-	
-	
 }
 
