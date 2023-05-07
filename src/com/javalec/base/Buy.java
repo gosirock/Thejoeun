@@ -160,16 +160,6 @@ public class Buy extends JFrame {
 		lblUserId.setBounds(52, 10, 109, 16);
 		contentPane.add(lblUserId);
 		contentPane.add(getBtnBuygo());
-		
-		JButton btnBasketEmpty = new JButton("장바구니 비우기");
-		btnBasketEmpty.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				basketEmptyAction();
-			}
-		});
-		btnBasketEmpty.setFont(new Font("Dialog", Font.PLAIN, 15));
-		btnBasketEmpty.setBounds(64, 517, 157, 23);
-		contentPane.add(btnBasketEmpty);
 		contentPane.add(getCbSelection());
 		contentPane.add(getBtnQuery());
 		contentPane.add(getTfSelection());
@@ -177,7 +167,7 @@ public class Buy extends JFrame {
 	
 	private JLabel getLblImage() {
 		if (lblImage == null) {
-			lblImage = new JLabel("New label");
+			lblImage = new JLabel("");
 			lblImage.setBounds(12, 305, 190, 176);
 		}
 		return lblImage;
@@ -359,6 +349,7 @@ private void clearColumn() {
 		
 		if(result) {
 			JOptionPane.showMessageDialog(this, "해당상품을 장바구니에 담았습니다");
+			tfqty.setText(null);
 		}else {
 			JOptionPane.showMessageDialog(this, "장바구니를 비워주세요");
 		}
@@ -370,13 +361,6 @@ private void clearColumn() {
 		basket.setVisible(true);
 		dispose();
 
-	}
-
-	private void basketEmptyAction() {
-		
-		DaoProduct daoProduct = new DaoProduct();
-		daoProduct.basketEmptyAction();
-		JOptionPane.showMessageDialog(this, "장바구니를 비웠습니다.");
 	}
 	
 	private void conditionQuery() {

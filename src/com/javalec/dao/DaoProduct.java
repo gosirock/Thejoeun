@@ -109,11 +109,13 @@ public class DaoProduct {
 				
 				String query = "insert into basket(product_pid, user_userid, qty, insertdate)";
 				String query1 = " values (?, ?, ?, now())";
+				String query2 = " on duplicate key update qty = qty+?, insertdate = now()";
 				
-				ps = conn_mysql.prepareStatement(query + query1);
+				ps = conn_mysql.prepareStatement(query + query1 + query2);
 				ps.setString(1, pid.trim());
 				ps.setString(2, ShareVar.loginUserId);
 				ps.setInt(3, Integer.parseInt(qty));
+				ps.setInt(4, Integer.parseInt(qty));
 				
 				ps.executeUpdate();
 				conn_mysql.close();
