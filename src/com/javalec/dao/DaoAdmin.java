@@ -37,7 +37,7 @@ public class DaoAdmin {
 		String condata;
 		
 		// File
-		FileInputStream file;
+		FileInputStream pimage;
 		
 
 		
@@ -63,7 +63,7 @@ public class DaoAdmin {
 		}
 
 
-		public DaoAdmin(String pid, String pbrand, String pname, int pstock, int pprice, FileInputStream file) {  //insertAction 해주기 생성자
+		public DaoAdmin(String pid, String pbrand, String pname, int pstock, int pprice, FileInputStream pimage) {  //insertAction 해주기 생성자
 			
 			super();
 			this.pid = pid;
@@ -71,7 +71,7 @@ public class DaoAdmin {
 			this.pname = pname;
 			this.pstock = pstock;
 			this.pprice = pprice;
-			this.file = file;
+			this.pimage = pimage;
 		}
 		
 		
@@ -192,8 +192,9 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "insert into product (pid,pbrand,pname,pstock,pprice)";
-				String query1 = " values (?,?,?,?,?)";
+				String query = "insert into product (pid,pbrand,pname,pstock,pprice,pimage)";
+				String query1 = " values (?,?,?,?,?,?"
+						+ ")";
 				
 				ps = conn_mysql.prepareStatement(query + query1);
 				ps.setString(1, pid.trim());
@@ -202,7 +203,7 @@ public class DaoAdmin {
 				ps.setInt(4, pstock);
 				ps.setInt(5, pprice);
 				// File 추가
-				//ps.setBinaryStream(6, pimage);
+				ps.setBinaryStream(6, pimage);
 				
 				
 				ps.executeUpdate();

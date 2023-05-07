@@ -359,7 +359,7 @@ private void tableClick() {  //
 			tfID.setEditable(false);
 			tfStock.setEditable(true);
 			tfPrice.setEditable(true);
-			tfFilePath.setEditable(true);
+			tfFilePath.setEditable(false);
 			btnOK.setVisible(true);
 			btnOK.setEnabled(true);
 		}
@@ -382,7 +382,7 @@ private void tableClick() {  //
 			tfID.setEditable(true);
 			tfStock.setEditable(true);
 			tfPrice.setEditable(true);
-			tfFilePath.setEditable(true);
+			tfFilePath.setEditable(false);
 			btnOK.setVisible(true);
 			btnOK.setEnabled(true);
 		}
@@ -400,7 +400,7 @@ private void tableClick() {  //
 		tfName.setText(dto.getPname());
 		tfStock.setText(Integer.toString(dto.getPstock()));
 		tfPrice.setText(Integer.toString(dto.getPprice()));
-		//tfFilePath.setText(dto.getPimagename());
+		tfFilePath.setText(dto.getPimagename());
 		
 		
 		// Image 처리
