@@ -29,7 +29,7 @@ public class DaoAdmin {
 		String pname;
 		int pstock;
 		int pprice;
-		String pimagename;
+		String pimagename="";
 		
 		
 		
@@ -78,6 +78,18 @@ public class DaoAdmin {
 		
 		
 		
+		public DaoAdmin(String pid, String pbrand, String pname, int pstock, int pprice, String pimagename,
+				FileInputStream pimage) {
+			super();
+			this.pid = pid;
+			this.pbrand = pbrand;
+			this.pname = pname;
+			this.pstock = pstock;
+			this.pprice = pprice;
+			this.pimagename = pimagename;
+			this.pimage = pimage;
+		}
+		
 		
 		
 		
@@ -85,7 +97,8 @@ public class DaoAdmin {
 		
 		// ----------------f
 		
-		
+
+
 		public DtoAdmin tableClick() {
 			DtoAdmin dto = null;
 			
@@ -192,9 +205,8 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "insert into product (pid,pbrand,pname,pstock,pprice,pimage)";
-				String query1 = " values (?,?,?,?,?,?"
-						+ ")";
+				String query = "insert into product (pid,pbrand,pname,pstock,pprice,pimage,pimagename)";
+				String query1 = " values (?,?,?,?,?,?,?)";
 				
 				ps = conn_mysql.prepareStatement(query + query1);
 				ps.setString(1, pid.trim());
@@ -204,6 +216,7 @@ public class DaoAdmin {
 				ps.setInt(5, pprice);
 				// File 추가
 				ps.setBinaryStream(6, pimage);
+				ps.setString(7, pimagename);
 				
 				
 				ps.executeUpdate();
@@ -238,7 +251,7 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "update product set  pbrand = ?, pname = ?, pstock = ?, pprice = ?";
+				String query = "update product set  pbrand = ?, pname = ?, pstock = ?, pprice = ?, pimagename = ?";
 				String query1 = " where pid = ?";
 				
 				ps = conn_mysql.prepareStatement(query + query1);
@@ -246,8 +259,8 @@ public class DaoAdmin {
 				ps.setString(2, pname.trim());
 				ps.setInt(3, pstock);
 				ps.setInt(4, pprice);
-				ps.setString(5, pid);   // 물음표 6번
-				
+				ps.setString(5, pimagename);
+				ps.setString(6, pid);   // 물음표 6번
 				
 				
 				ps.executeUpdate();
@@ -284,7 +297,7 @@ public class DaoAdmin {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query = "delete from shoesshop.product where pid = ?";
+				String query = "delete from shoes.product where pid = ?";
 				
 				ps = conn_mysql.prepareStatement(query);
 				ps.setString(1,pid);
