@@ -10,6 +10,7 @@ import javax.swing.table.TableColumn;
 
 import com.javalec.dao.Dao;
 import com.javalec.dao.DaoProduct;
+import com.javalec.dao.DaoConditionList;
 import com.javalec.dto.Dto;
 import com.javalec.util.ShareVar;
 
@@ -347,7 +348,7 @@ private void clearColumn() {
 		
 	}
 	// 담기
-	private void basketAction() {
+	public void basketAction() {
 		
 		int i = innerTable.getSelectedRow();
 		String baspid = (String) innerTable.getValueAt(i, 0);
@@ -399,19 +400,19 @@ private void clearColumn() {
 	
 	private void conditionQueryAction(String conditionQueryColumn) {
 		
-		Dao dao = new Dao(conditionQueryColumn, tfSelection.getText());
+		DaoConditionList dao = new DaoConditionList(conditionQueryColumn, tfSelection.getText()); 
 		ArrayList<Dto> dtoList = dao.conditionList();
 		int listCount = dtoList.size();
 		
 		for(int i = 0; i < listCount; i++) {
-			String temp = Integer.toString(dtoList.get(i).getSeqno());
-			String[] qTxt = {temp, dtoList.get(i).getName(), dtoList.get(i).getTelno(), dtoList.get(i).getRelation()};
+			String price = Integer.toString(dtoList.get(i).getPprice());
+			String stock = Integer.toString(dtoList.get(i).getPstock());
+			
+			String[] qTxt = {dtoList.get(i).getPid(), dtoList.get(i).getPbrand(), dtoList.get(i).getPname(), price,
+					stock};
 			outerTable.addRow(qTxt);
 		}
-		tfCount.setText(Integer.toString(listCount));
 
-
-		
 	}
 	
 	

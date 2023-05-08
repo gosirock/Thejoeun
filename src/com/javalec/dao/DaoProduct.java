@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.javalec.base.Basket;
 import com.javalec.dto.Dto;
 import com.javalec.util.ShareVar;
 
@@ -51,7 +52,7 @@ public class DaoProduct {
 
 
 
-
+		// 장바구니 담기
 		public DaoProduct(String pid, String qty) {
 		super();
 		this.pid = pid;
@@ -115,6 +116,8 @@ public class DaoProduct {
 				ps.setString(2, ShareVar.loginUserId);
 				ps.setInt(3, Integer.parseInt(qty));
 				
+				//Basket basket = new Basket(qty);
+				
 				ps.executeUpdate();
 				conn_mysql.close();
 				
@@ -124,6 +127,40 @@ public class DaoProduct {
 			}
 			return true;
 		}
+		
+//		// 구매시 
+//		public boolean purchasesAction() {
+//			PreparedStatement ps = null;
+//			try {
+//				Class.forName("com.mysql.cj.jdbc.Driver");
+//				Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+//				Statement stmt_mysql = conn_mysql.createStatement();
+//				
+//				
+//				String query = "update basket b, user u, product p";
+//				String query1 = "set b.qty = b.qty-1 and p.pstock = p.pstock-1"; 
+//				String query2 = "where u.userid = b.user_userid  AND p.pid = b.product_pid and u.userid =" + ShareVar.loginUserId; ;
+//				
+//				
+//				ps = conn_mysql.prepareStatement(query + query1 + query2);
+//				ps.setString(1, pid.trim());
+//				ps.setString(2, ShareVar.loginUserId);
+//				ps.setInt(3, Integer.parseInt(qty));
+//				
+//				//Basket basket = new Basket(qty);
+//				
+//				ps.executeUpdate();
+//				conn_mysql.close();
+//				
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//				return false;
+//			}
+//			return true;
+//		}
+		
+		
+		
 		// 장바구니 비우기
 		public void basketEmptyAction() {
 			

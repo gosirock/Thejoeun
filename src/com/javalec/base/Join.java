@@ -30,6 +30,8 @@ public class Join extends JFrame {
 	private JTextField tfAddress;
 	private JButton btnCheck;
 	private JButton btnJoin;
+	
+	String message = "";
 
 	/**
 	 * Launch the application.
@@ -128,11 +130,18 @@ public class Join extends JFrame {
 		contentPane.add(tfAddress);
 		contentPane.add(getBtnCheck());
 		
+		
+		
 		btnJoin = new JButton("회원가입");
 		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			Boolean check = checkField();				//Boolean 받기
+			if(check) {
 				joinAction();
-			}
+			}else {
+				JOptionPane.showMessageDialog(null, "빈칸을 확인하세요", "경고", JOptionPane.INFORMATION_MESSAGE);
+				//tfStartNum.setText("");
+			}}
 		});
 		btnJoin.setEnabled(false);
 		btnJoin.setBounds(123, 401, 117, 29);
@@ -155,6 +164,18 @@ public class Join extends JFrame {
 
 	
 	// ---- Function
+	
+	
+	
+	private Boolean checkField() {	// 공백 체크
+		boolean check;
+		if(tfId.getText().equals("") || tfPw.getText().equals("") || tfName.getText().equals("") || tfPhone.getText().equals("") || tfEmail.getText().equals("") || tfAddress.getText().equals("")) {
+			check = false;
+		}else {
+			check = true;
+		}
+		return check;
+	}
 	
 	private void joinAction() {
 		String uid = tfId.getText();

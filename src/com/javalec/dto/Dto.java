@@ -12,6 +12,7 @@ public class Dto {
 	int pprice;
 	int pstock;
 	String pimagename;
+	int bqty;
 	
 	
 	public String getPimagename() {
@@ -111,6 +112,13 @@ public class Dto {
 
 	public void setPstock(int pstock) {
 		this.pstock = pstock;
+	}
+
+	public int getBqty() {
+		return bqty;
+	}
+	public void setgetBqty(int bqty) {
+		this.bqty = bqty;
 	}
 	
 	
