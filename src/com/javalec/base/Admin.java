@@ -364,6 +364,7 @@ private void tableClick() {  //
 			tfFilePath.setEditable(false);
 			btnOK.setVisible(true);
 			btnOK.setEnabled(true);
+			btnFilePath.setVisible(true);
 		}
 		
 		
@@ -529,6 +530,7 @@ private void screenPartition() {
 		tfFilePath.setEditable(false);
 		btnOK.setVisible(false);
 		btnOK.setEnabled(false);
+		btnFilePath.setVisible(false);
 	}
 
 	// 입력의 경우
@@ -542,6 +544,8 @@ private void screenPartition() {
 		tfFilePath.setEditable(true);
 		btnOK.setVisible(true);
 		btnOK.setEnabled(true);
+		btnFilePath.setVisible(true);
+		
 	}
 	
 	// 수정의 경우
@@ -554,6 +558,7 @@ private void screenPartition() {
 		tfFilePath.setEditable(false);
 		btnOK.setVisible(true);
 		btnOK.setEnabled(false);
+		btnFilePath.setVisible(false);
 	}
 	
 	// 삭제의 경우
@@ -566,6 +571,7 @@ private void screenPartition() {
 		tfFilePath.setEditable(false);
 		btnOK.setVisible(true);
 		btnOK.setEnabled(false);
+		btnFilePath.setVisible(false);
 	}
 	
 
@@ -738,6 +744,7 @@ private void clearColumn() {
 	tfStock.setText("");
 	tfPrice.setText("");
 	tfFilePath.setText("");
+	lblImage.setIcon(null);
 }
 
 

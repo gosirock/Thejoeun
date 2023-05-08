@@ -110,7 +110,7 @@ public class DaoProduct {
 				Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
 
-				String query0 = "select pstock > " + qty + " from product where pid = '" + pid + "'";
+				String query0 = "select pstock >= " + qty + " from product where pid = '" + pid + "'";
 				ResultSet rs = stmt_mysql.executeQuery(query0);
 				int rss = 0;
 				while(rs.next()) {
