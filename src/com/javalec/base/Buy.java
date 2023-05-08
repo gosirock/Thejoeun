@@ -58,7 +58,7 @@ public class Buy extends JFrame {
 	private JComboBox cbSelection;
 	private JButton btnQuery;
 	private JTextField tfSelection;
-
+	private JButton btnBasket = new JButton();
 	/**
 	 * Launch the application.
 	 */
@@ -125,17 +125,6 @@ public class Buy extends JFrame {
 		lblNewLabel_2_1_1_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		lblNewLabel_2_1_1_1.setBounds(238, 404, 81, 18);
 		contentPane.add(lblNewLabel_2_1_1_1);
-
-		JButton btnBasket = new JButton("담기");
-		btnBasket.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				basketAction();
-			}
-		});
-		btnBasket.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnBasket.setBounds(280, 519, 97, 23);
-		contentPane.add(btnBasket);
 		contentPane.add(getTfBrand());
 		
 		tfName = new JTextField();
@@ -163,6 +152,17 @@ public class Buy extends JFrame {
 		contentPane.add(getCbSelection());
 		contentPane.add(getBtnQuery());
 		contentPane.add(getTfSelection());
+		
+		btnBasket.setText("장바구니에 담기"); 
+		btnBasket.setEnabled(false);
+		btnBasket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				basketAction();
+				
+			}
+		});
+		btnBasket.setBounds(249, 515, 117, 29);
+		contentPane.add(btnBasket);
 	}
 	
 	private JLabel getLblImage() {
@@ -188,6 +188,7 @@ public class Buy extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					tableClick();
+					btnBasket.setEnabled(true);
 					
 				}
 			});
@@ -308,7 +309,6 @@ public class Buy extends JFrame {
 	// 테이블 클릭
 
 	private void tableClick() {
-		
 		int i = innerTable.getSelectedRow();
 		String wkpid = (String) innerTable.getValueAt(i, 0);
 		
@@ -329,11 +329,10 @@ public class Buy extends JFrame {
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		
 		File file = new File(imagefile);
 		file.delete();
-		
 	}
+	
 private void clearColumn() {
 		
 		tfBrand.setText("");
@@ -356,7 +355,7 @@ private void clearColumn() {
 			JOptionPane.showMessageDialog(this, "해당상품을 장바구니에 담았습니다");
 			tfqty.setText(null);
 		}else {
-			JOptionPane.showMessageDialog(this, "장바구니를 비워주세요");
+			JOptionPane.showMessageDialog(this, "재고가 부족합니다");
 		}
 	}
 	

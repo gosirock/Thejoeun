@@ -9,8 +9,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.javalec.dto.Dto;
+import com.javalec.dto.DtoBasket;
 import com.javalec.util.ShareVar;
 
 public class DaoProduct {
@@ -107,25 +109,42 @@ public class DaoProduct {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
 				Statement stmt_mysql = conn_mysql.createStatement();
+
+				String query0 = "select pstock > " + qty + " from product where pid = '" + pid + "'";
+				ResultSet rs = stmt_mysql.executeQuery(query0);
+				int rss = 0;
+				while(rs.next()) {
+					rss = rs.getInt(1);	
+				}
 				
-				String query = "insert into basket(product_pid, user_userid, qty, insertdate)";
-				String query1 = " values (?, ?, ?, now())";
-				String query2 = " on duplicate key update qty = qty+?, insertdate = now()";
 				
-				ps = conn_mysql.prepareStatement(query + query1 + query2);
-				ps.setString(1, pid.trim());
-				ps.setString(2, ShareVar.loginUserId);
-				ps.setInt(3, Integer.parseInt(qty));
-				ps.setInt(4, Integer.parseInt(qty));
+				if(rss == 1) {
+					String query = "insert into basket(product_pid, user_userid, qty, insertdate)";
+					String query1 = " values (?, ?, ?, now())";
+					String query2 = " on duplicate key update qty = qty+?, insertdate = now()";
+					
+					ps = conn_mysql.prepareStatement(query + query1 + query2);
+					ps.setString(1, pid.trim());
+					ps.setString(2, ShareVar.loginUserId);
+					ps.setInt(3, Integer.parseInt(qty));
+					ps.setInt(4, Integer.parseInt(qty));
+					
+					ps.executeUpdate();
+					conn_mysql.close();	
+					
+					return true;
+				}else {
+					return false;
+					
+					
+				}
 				
-				ps.executeUpdate();
-				conn_mysql.close();
 				
+
 			}catch(Exception e) {
 				e.printStackTrace();
 				return false;
 			}
-			return true;
 		}
 		// 장바구니 비우기
 		public void basketEmptyAction() {
@@ -148,7 +167,73 @@ public class DaoProduct {
 		}
 		}
 
+		public void selectDelete() {
+			PreparedStatement ps = null;
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				String query = "delete from basket where product_pid = '" + pid + "'";
+				
+				ps = conn_mysql.prepareStatement(query);
+				ps.executeUpdate();
+				conn_mysql.close();
+				
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
+		}
+		
+		
+		public void buyAction() {
+			ArrayList<DtoBasket> dtobasket = new ArrayList<DtoBasket>();
+			
+			String whereDefault = "select product_pid, qty from basket";
+			PreparedStatement ps = null;
+			
+			try {
+				int listCount = 0;
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+				
+				ResultSet rs = stmt_mysql.executeQuery(whereDefault);
+				
+				while(rs.next()) {
+					String pid = rs.getString(1);
+					int tqy = rs.getInt(2);
+					
+				DtoBasket dto = new DtoBasket(tqy, pid);
+				dtobasket.add(dto);
+				listCount = dtobasket.size();
+				
+				}
+				for(int i = 0; i < listCount; i++) {
+					String query0 = "update product set pstock = pstock -" + dtobasket.get(i).getBqty() + " where pid = '" + dtobasket.get(i).getBpid() + "'";  
+				
+					ps = conn_mysql.prepareStatement(query0);
+					ps.executeUpdate();
+				}				
+				
+				
+				String query = "insert into purchase select * from basket";
+				String query1 = "delete from basket where user_userid = '" + ShareVar.loginUserId + "'";
+				
+				
+				ps = conn_mysql.prepareStatement(query);
+				ps = conn_mysql.prepareStatement(query1);
+				ps.executeUpdate();
+				conn_mysql.close();
 
+		}catch(Exception e) {
+			e.printStackTrace();
 
+		}
+
+		}
+		
+		
 }

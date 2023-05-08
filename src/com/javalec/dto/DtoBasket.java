@@ -7,11 +7,65 @@ public class DtoBasket {
 	String pname;
 	int pprice;
 	int bqty;
+	String bpid;
+	String product_pid;
 	
-	
+	public String getProduct_pid() {
+		return product_pid;
+	}
+
+
+
+
+	public void setProduct_pid(String product_pid) {
+		this.product_pid = product_pid;
+	}
+
+
+
+
 	public DtoBasket() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
+
+	public int getPprice() {
+		return pprice;
+	}
+
+
+
+
+	public void setPprice(int pprice) {
+		this.pprice = pprice;
+	}
+
+
+
+
+	public String getBpid() {
+		return bpid;
+	}
+
+
+
+
+	public void setBpid(String bpid) {
+		this.bpid = bpid;
+	}
+
+
+
+
+	public DtoBasket(int bqty, String bpid) {
+		super();
+		this.bqty = bqty;
+		this.bpid = bpid;
+	}
+
+
 
 
 	public DtoBasket(String pid, String pbrand, String pname, int ppricne, int bqty) {
