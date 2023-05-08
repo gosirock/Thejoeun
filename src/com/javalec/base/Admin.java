@@ -269,7 +269,7 @@ public class Admin extends JFrame {
 	}
 	private JLabel getLblNewLabel_2_1_1_1_1() {
 		if (lblNewLabel_2_1_1_1_1 == null) {
-			lblNewLabel_2_1_1_1_1 = new JLabel("파일경로 :");
+			lblNewLabel_2_1_1_1_1 = new JLabel("파일명 :");
 			lblNewLabel_2_1_1_1_1.setFont(new Font("굴림", Font.PLAIN, 15));
 			lblNewLabel_2_1_1_1_1.setBounds(238, 451, 81, 18);
 		}
@@ -701,10 +701,11 @@ private void insertAction() {
 	String name = tfName.getText();
 	int stock = Integer.parseInt(tfStock.getText());
 	int price = Integer.parseInt(tfPrice.getText());
-	String imagename = tfFilePath.getText();
+	String imagename = "image";
 	
 	// Image File
 	FileInputStream input = null;
+	
 	File file = new File(tfFilePath.getText());
 	try {
 		input = new FileInputStream(file);
@@ -851,6 +852,7 @@ private void updateAction() {
 		String filePath = chooser.getSelectedFile().getPath();
 		tfFilePath.setText(filePath);
 		
+		
 		lblImage.setIcon(new ImageIcon(filePath));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -920,8 +922,8 @@ private void updateAction() {
 			String price = Integer.toString(dtoList.get(i).getPprice());
 			String stock = Integer.toString(dtoList.get(i).getPstock());
 			
-			String[] qTxt = {dtoList.get(i).getPid(), dtoList.get(i).getPbrand(), dtoList.get(i).getPname(), price,
-					stock};
+			String[] qTxt = {dtoList.get(i).getPid(), dtoList.get(i).getPbrand(), dtoList.get(i).getPname(), stock,
+					price};
 			outerTable.addRow(qTxt);
 		}
 

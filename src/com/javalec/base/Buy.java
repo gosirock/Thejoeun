@@ -28,6 +28,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -182,8 +183,10 @@ public class Buy extends JFrame {
 		return tfBrand;
 	}
 	private JTable getInnerTable() {
+		
 		if (innerTable == null) {
 			innerTable = new JTable();
+			innerTable.setRowSelectionAllowed(false);
 			innerTable.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
