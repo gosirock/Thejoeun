@@ -90,6 +90,7 @@ public class Main extends JFrame {
 		}
 		return tfPw;
 	}
+	
 // --- Function
 	
 	private void join() {
