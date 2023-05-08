@@ -719,9 +719,9 @@ private void insertAction() {
 	boolean result = dao.insertAction(); 
 	
 	if (result) {
-		JOptionPane.showMessageDialog(this, "정보 입력\n"+tfName.getText()+ "님의 정보가 입력되었습니다.", "주소록 정보",JOptionPane.INFORMATION_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 입력\n"+tfName.getText()+ "의 정보가 입력되었습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}else {
-		JOptionPane.showMessageDialog(this, "정보 입력\n"+ "입력 중 문제가 발생했습니다.", "주소록 정보",JOptionPane.ERROR_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 입력\n"+ "입력 중 문제가 발생했습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}
 	
 }
@@ -775,9 +775,9 @@ private void deleteAction() {
 	boolean result = dao.deleteAction();
 	
 	if (result) {
-		JOptionPane.showMessageDialog(this, "정보 삭제\n"+tfName.getText()+ "님의 정보가 삭제되었습니다.", "주소록 정보",JOptionPane.INFORMATION_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 삭제\n"+tfName.getText()+ "의 정보가 삭제되었습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}else {
-		JOptionPane.showMessageDialog(this, "정보 삭제\n"+ "삭제 중 문제가 발생했습니다.", "주소록 정보",JOptionPane.ERROR_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 삭제\n"+ "삭제 중 문제가 발생했습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}
 	
 }
@@ -812,9 +812,9 @@ private void updateAction() {
 	boolean result = dao.updateAction();
 	
 	if (result) {
-		JOptionPane.showMessageDialog(this, "정보 수정\n"+tfName.getText()+ "님의 정보가 수정었습니다.", "주소록 정보",JOptionPane.INFORMATION_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 수정\n"+tfName.getText()+ " 정보가 수정었습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}else {
-		JOptionPane.showMessageDialog(this, "정보 수정\n"+ "수정 중 문제가 발생했습니다.", "주소록 정보",JOptionPane.ERROR_MESSAGE); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
+		JOptionPane.showMessageDialog(this, "정보 수정\n"+ "수정 중 문제가 발생했습니다."); //this 는 active 창에 띄우고 null은 화면아무데나 중앙에 띄워라
 	}
 	
 }

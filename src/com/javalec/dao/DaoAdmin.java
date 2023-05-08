@@ -230,7 +230,6 @@ public class DaoAdmin {
 				ps.executeUpdate();
 				conn_mysql.close();
 				
-				JOptionPane.showMessageDialog(null, pname + "님의 정보가 입력 되었습니다.");
 				
 			}catch(Exception e) {
 				e.printStackTrace();
