@@ -104,6 +104,7 @@ public class Main extends JFrame {
 		String upassword = tfPw.getText();
 		
 		if(uid.equals("admin") && upassword.equals("1234")) {
+			ShareVar.loginUserId = uid;
 			Admin admin = new Admin();
 			admin.setVisible(true);
 			dispose();

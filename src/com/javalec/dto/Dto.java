@@ -12,8 +12,17 @@ public class Dto {
 	int pprice;
 	int pstock;
 	String pimagename;
+	String product_pid;
 	
 	
+	public String getProduct_pid() {
+		return product_pid;
+	}
+
+	public void setProduct_pid(String product_pid) {
+		this.product_pid = product_pid;
+	}
+
 	public String getPimagename() {
 		return pimagename;
 	}

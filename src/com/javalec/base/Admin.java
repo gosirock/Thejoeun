@@ -132,7 +132,7 @@ public class Admin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("ID :");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 15));
-		lblNewLabel.setBounds(12, 10, 24, 15);
+		lblNewLabel.setBounds(12, 6, 31, 19);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblUserId = new JLabel(ShareVar.loginUserId);
@@ -144,6 +144,7 @@ public class Admin extends JFrame {
 		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(238, 338, 81, 18);
 		contentPane.add(lblNewLabel_2);
+		
 		
 		JLabel lblNewLabel_2_1 = new JLabel("상품명 :");
 		lblNewLabel_2_1.setFont(new Font("굴림", Font.PLAIN, 15));
@@ -864,7 +865,7 @@ private void updateAction() {
 		if (cbSelection == null) {
 			cbSelection = new JComboBox();
 			cbSelection.setModel(new DefaultComboBoxModel(new String[] {"브랜드명", "제품명"}));
-			cbSelection.setBounds(268, 21, 89, 23);
+			cbSelection.setBounds(268, 21, 97, 23);
 		}
 		return cbSelection;
 	}

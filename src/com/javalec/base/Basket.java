@@ -19,6 +19,8 @@ import com.javalec.dto.DtoBasket;
 import com.javalec.util.ShareVar;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -38,6 +40,9 @@ public class Basket extends JFrame {
 	
 	private JPanel contentPane;
 	private JTable innerTable;
+	private JButton btnSelectDelete;
+	private JLabel lblSum;
+	private JButton btnM;
 	/**
 	 * Launch the application.
 	 */
@@ -64,11 +69,12 @@ public class Basket extends JFrame {
 			
 				tableInit();
 				searchAction();
+				sumAction();
 
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 600);
+		setBounds(100, 100, 640, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -91,33 +97,55 @@ public class Basket extends JFrame {
 		contentPane.add(lblUserId);
 		
 		JLabel lblNewLabel_2_1_1_1 = new JLabel("총 구매액 :");
-		lblNewLabel_2_1_1_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		lblNewLabel_2_1_1_1.setBounds(34, 499, 81, 18);
+		lblNewLabel_2_1_1_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblNewLabel_2_1_1_1.setBounds(35, 312, 121, 18);
 		contentPane.add(lblNewLabel_2_1_1_1);
 		
-		JButton btnNewButton = new JButton("돌아가기");
-		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnNewButton.setBounds(374, 497, 97, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("전체삭제");
-		btnNewButton_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(507, 283, 97, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("구매");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnReturn = new JButton("돌아가기");
+		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminOpen();
+				
+				returnAction();
 			}
 		});
-		btnNewButton_2.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnNewButton_2.setBounds(507, 497, 97, 23);
-		contentPane.add(btnNewButton_2);
+		btnReturn.setFont(new Font("굴림", Font.PLAIN, 15));
+		btnReturn.setBounds(387, 365, 97, 23);
+		contentPane.add(btnReturn);
 		
-		JLabel lblsum = new JLabel(Integer.toString(sumAction()));
-		lblsum.setBounds(147, 501, 108, 16);
-		contentPane.add(lblsum);
+		JButton btnAllDelete = new JButton("전체삭제");
+		btnAllDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				allDeleteAction();
+			}
+		});
+		btnAllDelete.setFont(new Font("굴림", Font.PLAIN, 15));
+		btnAllDelete.setBounds(507, 283, 97, 23);
+		contentPane.add(btnAllDelete);
+		
+		JButton btnBuy = new JButton("구매");
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buyAction();
+			}
+		});
+		btnBuy.setFont(new Font("굴림", Font.PLAIN, 15));
+		btnBuy.setBounds(507, 365, 97, 23);
+		contentPane.add(btnBuy);
+		contentPane.add(getBtnSelectDelete());
+		contentPane.add(getLblSum());
+		
+		JButton btnMM = new JButton("");
+		btnMM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main main = new Main();
+				main.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnMM.setBounds(595, 0, 45, 29);
+		contentPane.add(btnMM);
 	}
 	
 	
@@ -177,7 +205,29 @@ public class Basket extends JFrame {
 		width = 100;
 		col.setPreferredWidth(width);
 	}
-	
+	private JLabel getLblSum() {
+		if (lblSum == null) {
+			lblSum = new JLabel("");
+			lblSum.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblSum.setBounds(149, 312, 121, 20);
+		}
+		return lblSum;
+	}
+
+	private JButton getBtnSelectDelete() {
+		if (btnSelectDelete == null) {
+			btnSelectDelete = new JButton("선택항목삭제");
+			btnSelectDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectDeleteAction();
+				}
+			});
+			btnSelectDelete.setFont(new Font("Dialog", Font.PLAIN, 15));
+			btnSelectDelete.setBounds(387, 285, 108, 23);
+		}
+		return btnSelectDelete;
+	}
+
 	
 	private void searchAction() {
 		DaoBasket daoBasket = new DaoBasket();
@@ -199,7 +249,7 @@ public class Basket extends JFrame {
 			
 		}
 	
-	private int sumAction() {
+	private void sumAction() {
 		DaoBasket daoBasket = new DaoBasket();
 		ArrayList<DtoBasket> dtoList = daoBasket.selectLinst();
 		int listCount = dtoList.size();
@@ -210,13 +260,48 @@ public class Basket extends JFrame {
 			int a = dtoList.get(i).getPpricne();
 			int b = dtoList.get(i).getBqty();
 			sum += a * b;
-
 	}
-		return sum;
+		lblSum.setText(Integer.toString(sum));
+		
+		
 }
-	private void adminOpen() {
-		Admin admin = new Admin();
-		admin.setVisible(true);
+	private void returnAction() {
+		
+		Buy buy = new Buy();
+		buy.setVisible(true);
 		dispose();
+		
+	}
+	
+	private void allDeleteAction() {
+		
+		DaoProduct daoProduct = new DaoProduct();
+		daoProduct.basketEmptyAction();
+		JOptionPane.showMessageDialog(this, "장바구니를 비웠습니다.");
+		tableInit();
+		searchAction();
+		sumAction();
+	}
+	
+	private void selectDeleteAction() {
+		
+		int i = innerTable.getSelectedRow();
+		String wkpid = (String) innerTable.getValueAt(i, 0);
+		DaoProduct daoProduct = new DaoProduct(wkpid);
+		daoProduct.selectDelete();
+		String message = (String)innerTable.getValueAt(i, 2);
+		JOptionPane.showMessageDialog(this, message+"제품이 삭제 되었습니다.");
+		tableInit();
+		searchAction();
+		sumAction();
+	}
+	private void buyAction() {
+		
+		DaoProduct daoProduct = new DaoProduct();
+		daoProduct.buyAction();
+		JOptionPane.showMessageDialog(this, "상품을 구매했습니다. 감사합니다.");
+		tableInit();
+		searchAction();
+		sumAction();
 	}
 }
